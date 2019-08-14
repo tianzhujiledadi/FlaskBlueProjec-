@@ -1,0 +1,12 @@
+{% extends  "base.html" %}
+{% block title %}
+学生课程
+{% endblock %}
+{% block content %}
+    <form action="" class="form" method="post">
+    {{ stu_couForm.csrf_token }}
+        {{ stu_couForm.students_id }}<br>
+        {{ stu_couForm.course_id}}<br>
+        <input type="submit" value="提交" class="form-control" >
+    </form>
+{% endblock %}

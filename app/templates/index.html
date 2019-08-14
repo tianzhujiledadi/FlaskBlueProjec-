@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block content %}
+{% if request.cookies.identity_id %}
+        {% if request.cookies.identity=="0" %}
+    <table class="table">
+        <thead><tr>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>性别</td>
+            <td>课程</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{teacher.name }}</td>
+            <td>{{teacher.age }}</td>
+            <td>{{teacher.gender }}</td>
+            <td>{{teacher.course_id}}</td>
+            <td>修改信息</td>
+        </tr></tbody>
+    </table>
+            {% else %}
+            <table class="table">
+        <thead><tr>
+            <td>姓名</td>
+            <td>年龄</td>
+            <td>性别</td>
+            <td>课程</td>
+            <td>成绩</td>
+            <td>操作</td>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for i in  range(lenth) %}
+            <tr>
+            <td>{{student.name }}</td>
+            <td>{{student.age }}</td>
+            <td>{{student.gender }}</td>
+            <td>{{ courses_student[i].label }}</td>
+            {% if grades[i].grade %}
+            <td>{{ grade[i].grade}}</td>
+            {% else %}
+            <td>该课程正在学习中</td>
+            {% endif %}
+             <td>修改信息</td> </tr>
+            {% endfor %}
+       </tbody>
+    </table>
+            {% endif %}
+    {% else %}
+        {% if request.cookies.identity=="0" %}
+         <form action="" class="form" method="post">
+        {{ teacherForm.csrf_token }}
+        <span>{{ teacherForm.name }}</span><br>
+        {{ teacherForm.age }}<br>
+        {{ teacherForm.gender }}<br>
+        {{ teacherForm.course_id }}<br>
+        <input type="submit" value="提交" class="form-control" >
+    </form>
+        {% else %}
+            <form action="" method="post" class="form">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" >
+                <input type="text" name="name" placeholder="学生姓名" class="form-control">
+            <input type="text" name="age" placeholder="学生年龄" class="form-control">
+                                <select name="gender" class="form-control">
+                                    <option value="0" class="dropdown-item">男</option>
+                                    <option value="1" class="dropdown-item">女</option>
+                                    <option value="2" class="dropdown-item">其他</option>
+                                </select>
+{% for course in courses %}
+                <input type="checkbox" name="course_id" id="course" value="{{ course.id }}" class="form-control">{{ course.label }}
+{% endfor %}
+{#                                <select name="course_id" class="form-control">#}
+{#                                    {% for course in courses %}#}
+{#                                    <option value="{{ course.id }}" class="dropdown-item">{{ course.label }}</option>#}
+{#                                    {% endfor %}#}
+{#                                </select>#}
+
+            <input type="submit" value="提交">
+            </form>
+        {% endif %}
+    {% endif %}
+{% endblock %}

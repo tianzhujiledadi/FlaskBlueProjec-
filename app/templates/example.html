@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">4
+        <input type="checkbox" name="testCheck" value="1"> hello
+        <input type="checkbox" name="testCheck" value="2"> world
+        <input type="checkbox" name="testCheck" value="3"> ni
+        <input type="checkbox" name="testCheck" value="4"> hao
+        <input type="text" name="testText" value="5">
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>
